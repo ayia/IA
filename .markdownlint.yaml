@@ -1,0 +1,33 @@
+---
+# Règles de style Markdown personnalisées
+default: true
+
+# MD013 - Longueur de ligne
+MD013:
+  line_length: 120
+  code_blocks: false
+  tables: false
+
+# MD033 - Permettre le HTML inline pour des cas spécifiques
+MD033:
+  allowed_elements:
+    - br
+    - img
+
+# MD024 - Permettre les titres dupliqués dans différentes sections
+MD024:
+  allow_different_nesting: true
+
+# MD029 - Style de numérotation des listes ordonnées
+MD029:
+  style: ordered
+
+# MD041 - Premier titre du document
+MD041:
+  level: 1
+
+# MD007 - Indentation des listes à puces
+MD007:
+  indent: 2
+
+# Autres règles personnalisées selon vos besoins 

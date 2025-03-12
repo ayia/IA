@@ -1,0 +1,20 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+    -   id: trailing-whitespace  # Supprime les espaces en fin de ligne
+    -   id: end-of-file-fixer    # S'assure que les fichiers se terminent par une nouvelle ligne
+    -   id: check-yaml           # Valide la syntaxe des fichiers YAML
+    -   id: check-json           # Valide la syntaxe des fichiers JSON
+    -   id: check-merge-conflict # Détecte les conflits de fusion non résolus
+    -   id: check-case-conflict  # Vérifie les conflits de casse dans les noms de fichiers
+    -   id: mixed-line-ending    # Normalise les fins de ligne
+    -   id: detect-private-key   # Détecte les clés privées accidentellement commises
+
+# Ajoutez ici d'autres hooks spécifiques à votre projet selon les besoins
+# Par exemple, pour la validation Markdown :
+-   repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+    -   id: markdownlint        # Valide la syntaxe et le style Markdown
+        args: [--config, .markdownlint.yaml] 
