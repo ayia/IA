@@ -1,8 +1,7 @@
 FROM qwen2.5-coder:32b
 
-# Add metadata for the new model
-MODEL_NAME B3G-coder:32b
-CREATED_BY B3G Technologie
-
-# Optional: Add a custom description
+# Optional: Add a description (if needed)
 DESCRIPTION A powerful AI model designed for advanced coding tasks, developed by B3G Technologie.
+
+# Optional: Add a license (if applicable)
+LICENSE MIT
