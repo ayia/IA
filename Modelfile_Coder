@@ -3,7 +3,6 @@ FROM qwen2.5-coder:32b
 
 PARAMETER temperature 0.4
 PARAMETER top_p 0.97
-PARAMETER num_ctx 4096  # Replaces max_length (Ollama's context window parameter)
 PARAMETER repeat_penalty 1.25  # Correct parameter name
 
 SYSTEM """
