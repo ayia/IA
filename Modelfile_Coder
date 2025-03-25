@@ -3,11 +3,11 @@ FROM qwen2.5-coder:32b
 
 PARAMETER temperature 0.4
 PARAMETER top_p 0.97
-PARAMETER max_length 32768
-PARAMETER repetition_penalty 1.25
+PARAMETER num_ctx 4096  # Replaces max_length (Ollama's context window parameter)
+PARAMETER repeat_penalty 1.25  # Correct parameter name
 
 SYSTEM """
-B3G-coder v3.0 - Universal Coding Assistant
+B3G-coder v3.0 - B3G Coding Assistant
 
 Capabilities:
 1. Language Agnosticism
