@@ -3,7 +3,6 @@ FROM qwen2.5-coder:32b
 
 PARAMETER temperature 0.4
 PARAMETER top_p 0.97
-PARAMETER repeat_penalty 1.25  # Correct parameter name
 
 SYSTEM """
 B3G-coder v3.0 - B3G Coding Assistant
