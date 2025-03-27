@@ -1,0 +1,114 @@
+<details type="reasoning" done="true" duration="8">
+<summary>Thought for 8 seconds</summary>
+> Okay, so I need to help set up an API for B3G Technologies that includes specific models: B3G-Coder:14b, B3G-Coder:33B, and deepseek-r1:32b. The user wants the OpenAPI configuration to be more professional and aligned with LLM terminology. Also, they want the API keys to start with "b3g-" and have instructions on how to test it.
+> 
+> First, I should look at the original OpenAPI setup provided by the user. It seems like a basic setup without much detail or structure. To make it more professional, I need to include standard OpenAPI elements like `openapi`, `info`, `servers`, `tags`, and proper provider definitions.
+> 
+> The models are specialized for different purposes: B3G-Coder models are for coding tasks, while deepseek-r1 is for strategic thinking. I should reflect this in the descriptions so users understand what each model does.
+> 
+> Security is a big concern here. The user wants API keys stored in files instead of commands to prevent exposure. So, I need to set up a way to read API keys from a file and ensure they start with "b3g-".
+> 
+> Rate limiting is another important aspect to protect the API from abuse or overuse. Adding global rate limits will help maintain stability.
+> 
+> Testing instructions are crucial. Users should know how to test the API using tools like curl, including authenticating with the correct API key format.
+> 
+> Putting it all together, I'll structure the OpenAPI document step by step:
+> 1. Start with the basic OpenAPI version and info.
+> 2. Define servers if there's a specific URL or port.
+> 3. Use tags to categorize endpoints related to each model.
+> 4. List providers for each model with appropriate details.
+> 5. Include security definitions to specify how API keys are handled.
+> 6. Add rate limits to control usage.
+> 7. Provide clear testing commands and examples.
+> 
+> I also need to ensure that the API key starts with "b3g-" by specifying this in the security section or by generating keys accordingly.
+> 
+> Finally, I should test the setup myself to make sure everything works as intended before providing instructions to users.
+</details>
+To ensure that the API keys start with `b3g-` and provide testing instructions for your OpenAPI implementation, follow these steps:
+
+### Step 1: Create a Configuration File with API Key Prefix
+
+First, create a YAML configuration file (`lightllm_secure.yaml`) that specifies where the API key is stored and ensures it starts with `b3g-`.
+
+```yaml
+# lightllm_secure.yaml
+providers:
+  - name: b3g-coder-14b
+    type: local
+    endpoint: http://localhost:11434/api/generate
+    model_name: B3G-Coder:14b
+
+  - name: b3g-coder-33B
+    type: local
+    endpoint: http://localhost:11434/api/generate
+    model_name: B3G-Coder:33B
+
+  - name: deepseek-r1-32b
+    type: local 
+    endpoint: http://localhost:11434/api/generate
+    model_name: deepseek-r1:32b
+
+security:
+  api_key_file: /path/to/api_key.txt
+  api_key_prefix: b3g-
+
+rate_limits:
+  global:
+    max_requests: 1000
+    window: 60s
+```
+
+### Step 2: Generate an API Key with the Required Prefix
+
+Generate a secure API key and ensure it starts with `b3g-`.
+
+```bash
+# Generate a random API key and prepend "b3g-" 
+openssl rand -hex 16 | tr -d '\n' | sed 's/^/b3g-/g' > api_key.txt
+chmod 600 api_key.txt
+```
+
+### Step 3: Set Up Environment Variables
+
+Use an environment variable to specify the configuration file location, avoiding inline key exposure.
+
+```bash
+export LIGHTLLM_CONFIG=/path/to/lightllm_secure.yaml
+```
+
+### Step 4: Start LightLLM with Secure Configuration
+
+Run LightLLM using the specified configuration.
+
+```bash
+lightllm serve --config $LIGHTLLM_CONFIG
+```
+
+### Step 5: Test the API with the Correct API Key Format
+
+Use the following `curl` command to test your API endpoint with the correct API key starting with `b3g-`.
+
+```bash
+# Replace 'your_api_key_here' with your actual API key that starts with b3g-
+curl -X POST "http://localhost:1234/api/chat/completions" \
+  -H "Authorization: Bearer b3g-your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "messages": [{"role": "user", "content": "Hello!"}]
+      }'
+```
+
+### Step 6: Verify the API Key Format in Your Application
+
+Ensure that your application or service enforces the `b3g-` prefix for all API keys during validation.
+
+### Final Steps Summary
+
+1. **Configuration File (`lightllm_secure.yaml`)**: Defines providers, security settings (including API key file and prefix), and rate limits.
+2. **API Key Generation**: Generates a secure API key with the required `b3g-` prefix.
+3. **Environment Setup**: Uses environment variables to reference configuration files securely.
+4. **Server Start**: Initiates LightLLM with specified configurations.
+5. **Testing**: Ensures that API requests include properly formatted keys.
+
+By following these steps, you ensure that your API is secure and user-friendly, providing clear guidelines for key generation and testing.
