@@ -1,0 +1,25 @@
+# lightllm_secure.yaml
+providers:
+  - name: B3g-Coder:lite
+    type: local
+    endpoint: http://localhost:11434/api/generate
+    model_name: B3G-Coder:14b
+
+  - name: B3g-Coder
+    type: local
+    endpoint: http://localhost:11434/api/generate
+    model_name: B3G-Coder:33B
+
+  - name: B3g-deepseek-r1
+    type: local 
+    endpoint: http://localhost:11434/api/generate
+    model_name: deepseek-r1:32b
+
+security:
+  api_key_file: /path/to/api_key.txt
+  api_key_prefix: b3g-
+
+rate_limits:
+  global:
+    max_requests: 1000
+    window: 60s
